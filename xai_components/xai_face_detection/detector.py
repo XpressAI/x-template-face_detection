@@ -194,20 +194,26 @@ class FaceDetector(Component):
 @xai_component(color="orange")
 class CamInference(Component):
     """
-    Camera inference with popular face detectors.
+    Camera inference with popular face detectors. 
 
     Parameters:
         backend (int | str): Default: 3. Select face detector type. Available options are 0-5 which represent 'opencv', 'ssd', 'dlib', 'mtcnn', 'retinaface' and 'mediapipe'. You may select the detector with its index or name.
-        camera (int): Default: 0. If you have only one camera, default will mostly get the right camera. If you wish to use different camera, you can find your camera with different index such as, 1, 2, 3, etc.
+        camera (int): Default: 0. If you have only one camera, default will mostly get the right camera. If you wish to use different camera, you can find your camera with different index such as 1, 2, 3, etc.
+        show_fps (boolean): Default: True. Display FPS on the frame captured.
+        show_count (boolean): Default: True. Display face count on the frame captured.
     """
 
     backend: InArg[any]
     camera: InArg[int]
+    show_fps: InArg[bool]
+    show_count: InArg[bool]
 
     def __init__(self):
         self.done = False
         self.backend = InArg(3)
         self.camera = InArg(0)
+        self.show_fps = InArg(True)
+        self.show_count = InArg(True)
 
     def execute(self, ctx) -> None:
         # backend
@@ -217,10 +223,13 @@ class CamInference(Component):
         except:
             detector_backend = backends[self.backend.value]
         face_detector = Detector.build_model(detector_backend)
+        print(f"Detection backend is '{detector_backend}'.")
 
         cap = cv2.VideoCapture(self.camera.value)
         pTime = 0
 
+        print("Press 'ESC' to exit.")
+        print("Camera started!")
         while True:
             # read frame from camera
             success, img = cap.read()
@@ -234,16 +243,18 @@ class CamInference(Component):
             img, bounding_box = detect_face(face_detector, detector_backend, img)
 
             # display result
-            cv2.putText(
-                img,
-                "No. of face found: " + str(len(bounding_box)),
-                (20, 30),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.5,
-                (0, 255, 0),
-                2,
-            )
-            pTime = display_framerate(pTime, img)
+            if self.show_fps.value:
+                pTime = display_framerate(pTime, img)
+            if self.show_count.value:
+                cv2.putText(
+                    img,
+                    "No. of face found: " + str(len(bounding_box)),
+                    (20, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.5,
+                    (0, 255, 0),
+                    2,
+                )
 
             # recolor to BGR for display
             img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)

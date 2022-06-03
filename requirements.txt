@@ -24,7 +24,7 @@ deepface==0.0.75
 defusedxml==0.7.1
 Deprecated==1.2.13
 deprecation==2.1.0
-dlib==19.22.99
+dlib==19.22.1
 entrypoints==0.4
 executing==0.8.3
 fastjsonschema==2.15.3

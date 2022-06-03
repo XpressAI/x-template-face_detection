@@ -1,14 +1,20 @@
 # Xircuits Project Template
 
-This template allows you to apply face detection on images.
+This template allows you to apply face detection on images or with webcam in real-time.
 
-It consists of 1 component:
+It consists of 2 components:
 
-- [FaceDetector](/xai_components/xai_face_detection/detector.py#L41): Face detection with popular face detectors. It takes folder or image as input and detects face with speficied backend (default: `mtcnn`). If folder, result will be saved in `output` folder besides the same directory provided, else, result will be saved at the root directory here (Check the message printed out at the terminal).
+- [FaceDetector](/xai_components/xai_face_detection/detector.py#L54): Face detection with popular face detectors. It takes folder or image as input and detects face with speficied backend (default: `mtcnn`). If folder, result will be saved in `output` folder besides the same directory provided, else, result will be saved at the root directory here (Check the message printed out at the terminal).
+
+- [CamInference](/xai_components/xai_face_detection/detector.py#L195): Camera inference with popular face detectors. It will open your webcam and detect face.
 
 ## Prerequisites
 
 Python 3.9
+
+If you would like to use `dlib` face detector: <br>
+- [Microsoft Visual Studio for C++](https://visualstudio.microsoft.com/thank-you-for-downloading-visual-studio-for-cplusplus/?sku=Community&rel=16&rid=30005) <br>
+(Note: Ignore the dlib installation error during installation if you want to skip this step. Also, avoid backend=2 or backend='dlib'.)
 
 ## Installation
 
@@ -37,27 +43,44 @@ xircuits
 #### [FaceDetector.xircuits](/xircuits-workflows/FaceDetector.xircuits)
 
 <details>
-<summary>Where to provide input?</summary>
+<summary>Where to Provide Input?</summary>
 
-Input is taken by `img_path` of Component `FaceDetector`. Check out the [example](#example) below.
+Input is taken by `img_path` of Component `FaceDetector`. Check out the [example](#facedetector-example) below.
 
 You may provide folder or image file as input. Relative path or absolute path both are accepted (Noted that your folder in path should be separated by `/`).
 
 </details>
 
 <details>
-<summary>Where to find output?</summary>
+<summary>Which Backend Should I Use?</summary>
 
-If your input is folder, the output folder will be located besides your input folder.
-Example:
-Input: `resource/sample`
-Output: `resource/output/sample`
+`RetinaFace` and `MTCNN` seems to overperform in detection but they are much slower. If the speed of your pipeline is more important, then you should use `opencv`, `ssd` or `mediapipe`. On the other hand, if you consider the accuracy, then you should use `retinaface`, `mtcnn` or `dlib`.
 
-If your input is image file, the output will be located in this github root directory (the same directory as this README) named `output.jpg` and `output.txt`.
+Recommended for inference: `retinaface`, `mtcnn` or `dlib`.
+
+Available backend:
+- 0 - opencv
+- 1 - ssd
+- 2 - dlib
+- 3 - mtcnn
+- 4 - retinaface
+- 5 - mediapipe
 
 </details>
 
-##### Example
+<details>
+<summary>Where to Find Output?</summary>
+
+If your input is folder, the output folder will be located besides your input folder. \
+Example:
+- Input: `resource/sample`
+- Output: `resource/output/sample`
+
+If your input is image file, the output will be located in this github root directory (the same directory as this README) at `output.jpg` and `output.txt`.
+
+</details>
+
+##### FaceDetector Example
 
 ![inference](/resource/image/inference.gif)
 
@@ -65,6 +88,28 @@ If your input is image file, the output will be located in this github root dire
 
 #### [CamInference.xircuits](/xircuits-workflows/CamInference.xircuits)
 
-##### Example
+<details>
+<summary>Which Backend Should I Use?</summary>
 
-![cam_inference]()
+Recommended for real-time inference: `opencv`, `ssd` or `mediapipe`.
+
+Available backend:
+- 0 - opencv
+- 1 - ssd
+- 2 - dlib
+- 3 - mtcnn
+- 4 - retinaface
+- 5 - mediapipe
+
+</details>
+
+##### CamInference Example
+
+![cam_inference](/resource/image/cam_inference.gif)
+
+
+### Possible Issue
+1. Error to load weights while using 'ssd' backend <br>
+Details: `FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\user_name/.deepface/weights'` <br>
+Solution: Restart Xircuits.
+
