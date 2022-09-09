@@ -52,18 +52,21 @@ def detect_face(face_detector, detector_backend, img):
 
 @xai_component()
 class FaceDetector(Component):
-    """
-    Face detection with popular face detectors. It takes folder or image as input and detects face with speficied backend (default: `mtcnn`). If folder, result will be saved in `output` folder besides the same directory provided, else, result will be saved at the root directory here (Check the message printed out at the terminal).
+    """Face detection with popular face detectors. It takes folder or image as input and detects face with speficied backend (default: `mtcnn`). If folder, result will be saved in `output` folder besides the same directory provided, else, result will be saved at the root directory here (Check the message printed out at the terminal).
 
-    Parameters:
-        img_path (str): Folder or image file.
-        backend (int | str): Default: 3. Select face detector type. Available options are 0-5 which represent 'opencv', 'ssd', 'dlib', 'mtcnn', 'retinaface' and 'mediapipe'. You may select the detector with its index or name.
-        save_img (boolean): Default: True. Save image(s) with bounding box drawn if True.
-        save_txt (boolean): Default: True. Save bounding box found into text file if True.
+    ##### inPorts:
+    - img_path: Folder or image file.
+    - backend: Select face detector type. Available options are 0-5 which represent 'opencv', 'ssd', 'dlib', 'mtcnn', 'retinaface' and 'mediapipe'. You may select the detector with its index or name.
+        Default: 3
+    - save_img: Save image(s) with bounding box drawn if True.
+        Default: True. 
+    - save_txt: Save bounding box found into text file if True.
+        Default: True.
 
-    Returns:
-        bb (dict | list): If `img_path` is folder, dictionary with filename as key and bounding box as value is returned. Else, list of bounding box is returned. Noted that bounding box are in the format of [x, y, w, h] which (x, y) is the top left corner, w represents width and h represents height.
+    ##### outPorts:
+    - bb: If `img_path` is folder, dictionary with filename as key and bounding box as value is returned. Else, list of bounding box is returned. Noted that bounding box are in the format of [x, y, w, h] which (x, y) is the top left corner, w represents width and h represents height.
     """
+    
 
     img_path: InCompArg[str]
     backend: InArg[any]
@@ -193,14 +196,23 @@ class FaceDetector(Component):
 
 @xai_component(color="orange")
 class CamInference(Component):
-    """
-    Camera inference with popular face detectors. 
+    
+    """Camera inference with popular face detectors. 
 
-    Parameters:
-        backend (int | str): Default: 3. Select face detector type. Available options are 0-5 which represent 'opencv', 'ssd', 'dlib', 'mtcnn', 'retinaface' and 'mediapipe'. You may select the detector with its index or name.
-        camera (int): Default: 0. If you have only one camera, default will mostly get the right camera. If you wish to use different camera, you can find your camera with different index such as 1, 2, 3, etc.
-        show_fps (boolean): Default: True. Display FPS on the frame captured.
-        show_count (boolean): Default: True. Display face count on the frame captured.
+
+    ##### inPorts:
+    - backend: Select face detector type. Available options are 0-5 which represent 'opencv', 'ssd', 'dlib', 'mtcnn', 'retinaface' and 'mediapipe'. You may select the detector with its index or name.
+        Default: 3.
+    - camera (int): If you have only one camera, default will mostly get the right camera. If you wish to use different camera, you can find your camera with different index such as 1, 2, 3, etc.
+        Default: 0.
+    - show_fps: Display FPS on the frame captured.
+        Default: True.
+    - show_count: Display face count on the frame captured.
+        Default: True. 
+
+
+    ##### outPorts:
+    - bb: If `img_path` is folder, dictionary with filename as key and bounding box as value is returned. Else, list of bounding box is returned. Noted that bounding box are in the format of [x, y, w, h] which (x, y) is the top left corner, w represents width and h represents height.
     """
 
     backend: InArg[any]
