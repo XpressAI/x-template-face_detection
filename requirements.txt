@@ -1,3 +1,4 @@
 deepface
 matplotlib
 mediapipe
+xircuits
