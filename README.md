@@ -1,4 +1,4 @@
-# Xircuits Project Template
+# Xircuits Face Detection Project Template
 
 This template allows you to apply face detection on images or with webcam in real-time.
 
