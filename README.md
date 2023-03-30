@@ -82,7 +82,7 @@ If your input is image file, the output will be located in this github root dire
 
 ##### FaceDetector Example
 
-![inference](/resource/image/inference.gif)
+![inference](https://github.com/XpressAI/x-template-face_detection/raw/main/resource/image/inference.gif)
 
 ### Real-time Inference
 
@@ -105,7 +105,7 @@ Available backend:
 
 ##### CamInference Example
 
-![cam_inference](/resource/image/cam_inference.gif)
+![cam_inference](https://github.com/XpressAI/x-template-face_detection/raw/main/resource/image/cam_inference.gif)
 
 
 ### Possible Issue
