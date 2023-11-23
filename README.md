@@ -12,8 +12,8 @@ It consists of 2 components:
 
 Python 3.9
 
-If you would like to use `dlib` face detector: <br>
-- [Microsoft Visual Studio for C++](https://visualstudio.microsoft.com/thank-you-for-downloading-visual-studio-for-cplusplus/?sku=Community&rel=16&rid=30005) <br>
+If you would like to use `dlib` face detector: <br/>
+- [Microsoft Visual Studio for C++](https://visualstudio.microsoft.com/thank-you-for-downloading-visual-studio-for-cplusplus/?sku=Community&rel=16&rid=30005) <br/>
 (Note: Ignore the dlib installation error during installation if you want to skip this step. Also, avoid backend=2 or backend='dlib'.)
 
 ## Installation
@@ -109,7 +109,7 @@ Available backend:
 
 
 ### Possible Issue
-1. Error to load weights while using 'ssd' backend <br>
-Details: `FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\user_name/.deepface/weights'` <br>
+1. Error to load weights while using 'ssd' backend <br/>
+Details: `FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\user_name/.deepface/weights'` <br/>
 Solution: Restart Xircuits.
 
