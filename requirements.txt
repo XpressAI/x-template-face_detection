@@ -1,4 +1,5 @@
-deepface
-matplotlib
-mediapipe
 xircuits
+deepface==0.0.73
+matplotlib==3.9.3
+mediapipe==0.10.18
+tensorflow==2.15.0
